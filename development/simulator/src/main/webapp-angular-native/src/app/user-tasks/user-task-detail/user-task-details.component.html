@@ -1,0 +1,20 @@
+<p-panel>
+  <ng-template pTemplate="header">
+    <div class="flex-container items-center gap-2">
+      <p-avatar image="assets/Icon-Projekte.png" size="normal" class="margin-right "/>
+      <span class="font-bold">User Task Details</span>
+    </div>
+  </ng-template>
+  <div *ngIf="userTask; else errorTemplate">
+    <p><strong>Title:</strong> {{ userTask.title['de'] }}</p>
+    <p><strong>Assignee:</strong> {{ userTask.assignee?.display }}</p>
+    <p><strong>Assignee Email:</strong> {{ userTask.assignee?.email }}</p>
+    <p><strong>Candidate Users:</strong> {{ userTask.candidateUsers?.join(', ') || 'No candidates' }}</p>
+    <p><strong>Comment:</strong> {{ userTask.comment }}</p>
+  </div>
+
+</p-panel>
+<ng-template #errorTemplate>
+  <h2>Error</h2>
+  <p>{{ errorMessage }}</p>
+</ng-template>
