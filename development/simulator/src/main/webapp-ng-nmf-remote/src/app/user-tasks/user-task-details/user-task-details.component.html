@@ -1,0 +1,17 @@
+<div>
+  <!-- TODO: replace with @if -->
+  <div *ngIf="userTask; else errorTemplate">
+    <p><strong>Title:</strong> {{ userTask.title?.['de'] }}</p>
+    <p><strong>Assignee:</strong> {{ userTask.assignee?.display }}</p>
+    <p><strong>Assignee Email:</strong> {{ userTask.assignee?.email }}</p>
+    <p><strong>Candidate Users:</strong> {{ userTask.candidateUsers?.join(', ') || 'No candidates' }}</p>
+    <p><strong>Comment:</strong> {{ userTask.comment }}</p>
+  </div>
+
+  <p class="version-text">Angular version: {{ angularVersion }}</p>
+
+</div>
+<ng-template #errorTemplate>
+  <h2>Error</h2>
+  <p>{{ errorMessage }}</p>
+</ng-template>
