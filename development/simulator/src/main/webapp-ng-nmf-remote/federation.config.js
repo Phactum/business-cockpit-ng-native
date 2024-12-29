@@ -4,15 +4,13 @@ module.exports = withNativeFederation({
 
       name: 'webapp-ng-nmf-remote',
       exposes: {
-        './Routes': './src/app/app.routes.ts', // sub routes for Native Module Federation
+        // './Routes': './src/app/app.routes.ts', // sub routes for Module Federation
         './web-components': './src/bootstrap-as-webcomponent.ts', // Web Components for Native Federation
       },
       shared: {
         ...shareAll({singleton: true, strictVersion: true, requiredVersion: 'auto'}),
       },
       skip: [
-        /^@module-federation/, // TODO: try with mixed federation
-
         'rxjs/ajax',
         'rxjs/fetch',
         'rxjs/testing',
