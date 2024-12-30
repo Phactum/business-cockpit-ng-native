@@ -1,6 +1,6 @@
 import {Component, OnInit, VERSION} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {extractTemplateParameter} from "../../util/url.util";
 
 @Component({
   selector: 'app-user-task-details',
@@ -11,23 +11,32 @@ import {NgIf} from "@angular/common";
   templateUrl: './user-task-details.component.html',
   styleUrl: './user-task-details.component.css'
 })
-export class UserTaskDetailsComponent  implements OnInit {
+export class UserTaskDetailsComponent implements OnInit {
 
   angularVersion = VERSION.full;
 
-  taskId!: string;
+  taskId: string | null = null;
   userTask: any | null = null;
   errorMessage: string | null = null;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor() {
+  }
 
   ngOnInit(): void {
-    // Get task ID from the route parameters
-    this.taskId = this.route.snapshot.paramMap.get('id')!;
 
-    // fetch task details from the service (now constant)
+    console.info("URL: " + JSON.stringify(window.location.href));
+
+    // cannot get the activated route in a remote standalone component because there is no router involved
+    // this.taskId = this.route.snapshot.paramMap.get('id')!;
+
+    this.taskId = extractTemplateParameter(window.location.href, "tasks");
+    if (this.taskId === null) {
+      this.errorMessage = "No task id found in URL - cannot load task details.";
+    }
+
+    // TODO: fetch task details from the service (now constant for POC)
     this.userTask = {
-      id: "testId",
+      id: this.taskId,
       createdAt: new Date(),
       updatedAt: new Date(),
       workflowModuleId: "exampleModule",
@@ -42,7 +51,7 @@ export class UserTaskDetailsComponent  implements OnInit {
       taskDefinition: "exampleDefinition",
       uiUri: "/example/ui",
       workflowModuleUri: "/example/workflow",
-      // uiUriType: UiUriType.External
+      // uiUriType: UiUriType.External // enumeration not available until imported (switch from POC to service)
     };
   }
 

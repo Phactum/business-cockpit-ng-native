@@ -1,6 +1,7 @@
 <div>
   <!-- TODO: replace with @if -->
   <div *ngIf="userTask; else errorTemplate">
+    <p><strong>ID:</strong> {{ userTask.id }}</p>
     <p><strong>Title:</strong> {{ userTask.title?.['de'] }}</p>
     <p><strong>Assignee:</strong> {{ userTask.assignee?.display }}</p>
     <p><strong>Assignee Email:</strong> {{ userTask.assignee?.email }}</p>
