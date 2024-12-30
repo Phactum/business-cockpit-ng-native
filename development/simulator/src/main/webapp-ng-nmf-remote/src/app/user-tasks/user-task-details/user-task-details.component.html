@@ -1,13 +1,18 @@
 <div>
-  <!-- TODO: replace with @if -->
-  <div *ngIf="userTask; else errorTemplate">
-    <p><strong>ID:</strong> {{ userTask.id }}</p>
-    <p><strong>Title:</strong> {{ userTask.title?.['de'] }}</p>
-    <p><strong>Assignee:</strong> {{ userTask.assignee?.display }}</p>
-    <p><strong>Assignee Email:</strong> {{ userTask.assignee?.email }}</p>
-    <p><strong>Candidate Users:</strong> {{ userTask.candidateUsers?.join(', ') || 'No candidates' }}</p>
-    <p><strong>Comment:</strong> {{ userTask.comment }}</p>
-  </div>
+  @if (userTask) {
+    <div>
+      <p><strong>ID:</strong> {{ userTask.id }}</p>
+      <p><strong>Title:</strong> {{ userTask.title?.['de'] }}</p>
+      <p><strong>Assignee:</strong> {{ userTask.assignee?.display }}</p>
+      <p><strong>Assignee Email:</strong> {{ userTask.assignee?.email }}</p>
+      <p><strong>Candidate Users:</strong> {{ userTask.candidateUsers?.join(', ') || 'No candidates' }}</p>
+      <p><strong>Comment:</strong> {{ userTask.comment }}</p>
+    </div>
+  } @else {
+    <ng-template #errorTemplate>
+      <p>An error occurred while fetching the user task.</p>
+    </ng-template>
+  }
 
   <p class="version-text">Angular version: {{ angularVersion }}</p>
 
